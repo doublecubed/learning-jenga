@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace JengaGame.Gameplay
 {
@@ -20,13 +21,14 @@ namespace JengaGame.Gameplay
 		public float focusSwitchDuration;
 		
 		private bool mousePressed;
+		private bool cameraMoving;
 
 		private void Update()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
 				mousePressed = true;
-				Cursor.lockState = CursorLockMode.Locked;
+				//Cursor.lockState = CursorLockMode.Locked;
 				Cursor.visible = false;
 			}
 
@@ -37,7 +39,7 @@ namespace JengaGame.Gameplay
 				Cursor.visible = true;
 			}
 
-			if (mousePressed)
+			if (mousePressed && !cameraMoving)
 			{
 				float mouseXDelta = Input.GetAxis("Mouse X");
 				float mouseYDelta = Input.GetAxis("Mouse Y");
@@ -54,24 +56,58 @@ namespace JengaGame.Gameplay
 			cameraTransform.position += cameraTransform.forward * mouseScroll * zoomSpeed;
 
 
-			if (Input.GetKeyDown(KeyCode.Alpha1))
+			if (Input.GetKeyDown(KeyCode.Alpha6) && !cameraMoving)
 			{
-				StartCoroutine(MoveToFocus(focusPointCenters[0]));
+				MoveToSixthGrade();
 			}
 			
-			if (Input.GetKeyDown(KeyCode.Alpha2))
+			if (Input.GetKeyDown(KeyCode.Alpha7) && !cameraMoving)
 			{
-				StartCoroutine(MoveToFocus(focusPointCenters[1]));
+				MoveToSeventhGrade();
 			}
 			
-			if (Input.GetKeyDown(KeyCode.Alpha3))
+			if (Input.GetKeyDown(KeyCode.Alpha8) && !cameraMoving)
 			{
-				StartCoroutine(MoveToFocus(focusPointCenters[2]));
+				MoveToEighthGrade();
 			}
 		}
 
+		public void MoveToSixthGrade()
+		{
+			StartCoroutine(MoveToFocus(focusPointCenters[0]));
+		}
+
+		public void MoveToSeventhGrade()
+		{
+			StartCoroutine(MoveToFocus(focusPointCenters[1]));
+		}
+
+		public void MoveToEighthGrade()
+		{
+			StartCoroutine(MoveToFocus(focusPointCenters[2]));
+		}
+		
+		private bool IsPointerOverUI()
+		{
+			// Check if the mouse pointer is over any UI element
+			if (EventSystem.current != null)
+			{
+				PointerEventData eventData = new PointerEventData(EventSystem.current);
+				eventData.position = Input.mousePosition;
+
+				List<RaycastResult> results = new List<RaycastResult>();
+				EventSystem.current.RaycastAll(eventData, results);
+
+				return results.Count > 0;
+			}
+
+			return false;
+		}
+		
 		private IEnumerator MoveToFocus(Transform focusPoint)
 		{
+			cameraMoving = true;
+			
 			Vector3 startPos = transform.position;
 			Vector3 endPos = focusPoint.position;
 			
@@ -84,6 +120,8 @@ namespace JengaGame.Gameplay
 				transform.position = Vector3.Lerp(startPos, endPos, lerp);
 				yield return null;
 			}
+
+			cameraMoving = false;
 		}
 	}
 

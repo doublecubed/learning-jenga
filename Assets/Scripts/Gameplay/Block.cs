@@ -19,6 +19,8 @@ namespace JengaGame.Gameplay
 		private TextMeshPro[] _sideLabels;
 		[SerializeField]
 		private TextMeshPro[] _faceLabels;
+
+		public Rigidbody Rigidbody { get; private set; }
 		
 		#endregion
 
@@ -33,13 +35,14 @@ namespace JengaGame.Gameplay
 		private void Awake()
 		{
 			_renderer = GetComponentInChildren<MeshRenderer>();
+			Rigidbody = GetComponent<Rigidbody>();
 		}
 		
 
 		#endregion
 
 		#region METHODS
-
+		
 		public void SetMaterial(Material material)
 		{
 			_renderer.material = material;

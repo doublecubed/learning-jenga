@@ -7,54 +7,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JengaGame.Gameplay;
+using JengaGame.Data;
 
-public class ClickResolver : MonoBehaviour
+namespace JengaGame.UI
 {
-	#region REFERENCES
 
-	private Camera mainCam;
-
-	#endregion
-
-	#region VARIABLES
-
-	#endregion
-
-	#region MONOBEHAVIOUR
-
-	private void Start()
+	public class ClickResolver : MonoBehaviour
 	{
-		mainCam = Camera.main;
-	}
+		#region REFERENCES
 
-	private void Update()
-	{
-		if (Input.GetMouseButtonDown(1))
+		private Camera _mainCam;
+		private UIController _uiController;
+		
+		#endregion
+
+		#region VARIABLES
+
+		#endregion
+
+		#region MONOBEHAVIOUR
+
+		private void Start()
 		{
-			ProcessRightClick();
+			_mainCam = Camera.main;
+			_uiController = GetComponent<UIController>();
 		}
-	}
 
-	#endregion
-
-	#region METHODS
-
-	private void ProcessRightClick()
-	{
-		Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-		if (Physics.Raycast(ray, out RaycastHit hitInfo))
+		private void Update()
 		{
-			if (hitInfo.collider.gameObject.GetComponent<Block>())
+			if (Input.GetMouseButtonDown(1))
 			{
-				Debug.Log("it's a block");
-			}
-			else
-			{
-				Debug.Log("it's not a block");
+				ProcessRightClick();
 			}
 		}
-	}
-	
-	#endregion
 
+		#endregion
+
+		#region METHODS
+
+		private void ProcessRightClick()
+		{
+			Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out RaycastHit hitInfo))
+			{
+				if (hitInfo.collider.gameObject.TryGetComponent<Block>(out Block block))
+				{
+					BlockData data = block.Data;
+					_uiController.DisplayBlockDataOnPanel(data);
+					return;
+				}
+			}
+			
+			_uiController.HideInformationPanel();
+		}
+
+		#endregion
+
+	}
 }

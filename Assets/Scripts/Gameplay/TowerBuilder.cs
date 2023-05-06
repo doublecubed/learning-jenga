@@ -32,27 +32,24 @@ namespace JengaGame.Gameplay
 
 		#region MONOBEHAVIOUR
 
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				foreach (Block block in _glassBlocks)
-				{
-					block.gameObject.SetActive(false);
-				}
-
-				foreach (Block block in _allBlocks)
-				{
-					block.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-					block.gameObject.GetComponent<Rigidbody>().useGravity = true;
-				}
-			}
-		}
-
 		#endregion
 
 		#region METHODS
 
+		public void ReleaseTower()
+		{
+			foreach (Block block in _glassBlocks)
+			{
+				block.gameObject.SetActive(false);
+			}
+
+			foreach (Block block in _allBlocks)
+			{
+				block.Rigidbody.isKinematic = false;
+				block.Rigidbody.useGravity = true;
+			}
+		}
+		
 		public void BuildTower(List<BlockData> blocks)
 		{
 			_blockPrefab = Coordinator.BlockPrefab;

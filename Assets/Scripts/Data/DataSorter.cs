@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JengaGame.Gameplay;
+using JengaGame.UI;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -25,9 +26,9 @@ namespace JengaGame.Data
 
 		#region VARIABLES
 
-		private List<BlockData> _sixthGradeData;
-		private List<BlockData> _seventhGradeData;
-		private List<BlockData> _eighthGradeData;
+		public List<BlockData> SixthGradeData { get; private set; }
+		public List<BlockData> SeventhGradeData { get; private set; }
+		public List<BlockData> EighthGradeData { get; private set; }
 
 		private string _rawJsonData;
 		private List<BlockData> _unsortedBlockData;
@@ -43,7 +44,7 @@ namespace JengaGame.Data
 			await StartImport();
 			SortIntoBlockData();
 			SortIntoGrades();
-			InformCoordinator();
+			ActivateGenerateButton();
 		}
 
 	
@@ -65,31 +66,31 @@ namespace JengaGame.Data
 		{
 			Debug.Log("sorting into grades");
 
-			_sixthGradeData = new List<BlockData>();
-			_seventhGradeData = new List<BlockData>();
-			_eighthGradeData = new List<BlockData>();
+			SixthGradeData = new List<BlockData>();
+			SeventhGradeData = new List<BlockData>();
+			EighthGradeData = new List<BlockData>();
 			
 			for (int i = 0; i < _unsortedBlockData.Count; i++)
 			{
 				switch (_unsortedBlockData[i].Grade)
 				{
 					case "6th Grade" :
-						_sixthGradeData.Add(_unsortedBlockData[i]);
+						SixthGradeData.Add(_unsortedBlockData[i]);
 						break;
 					case "7th Grade" :
-						_seventhGradeData.Add(_unsortedBlockData[i]);
+						SeventhGradeData.Add(_unsortedBlockData[i]);
 						break;
 					case "8th Grade" :
-						_eighthGradeData.Add(_unsortedBlockData[i]);
+						EighthGradeData.Add(_unsortedBlockData[i]);
 						break;
 					default :
 						break;
 				}	
 			}
 			
-			Debug.Log("sixth grade has " + _sixthGradeData.Count + " elements");
-			Debug.Log("seventh grade has " + _seventhGradeData.Count + " elements");
-			Debug.Log("eighth grade has " + _eighthGradeData.Count + " elements");
+			Debug.Log("sixth grade has " + SixthGradeData.Count + " elements");
+			Debug.Log("seventh grade has " + SeventhGradeData.Count + " elements");
+			Debug.Log("eighth grade has " + EighthGradeData.Count + " elements");
 		}
 		
 		private List<BlockData> ParseJsonToBlockDataList(string json)
@@ -98,9 +99,9 @@ namespace JengaGame.Data
 	    return blockDataList;
     }
 
-		private void InformCoordinator()
+		private void ActivateGenerateButton()
 		{
-			_coordinator.InitializeBuild(_sixthGradeData, _seventhGradeData, _eighthGradeData);
+			UIController.Instance.ActivateGenerateButton();
 		}
 		
     #endregion
