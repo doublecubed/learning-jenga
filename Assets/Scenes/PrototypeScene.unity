@@ -318,6 +318,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &75596928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +600,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &270633039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +738,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2055241201}
         m_TargetAssemblyTypeName: JengaGame.Gameplay.CameraController, Assembly-CSharp
         m_MethodName: MoveToSixthGrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1961,6 +1997,11 @@ MonoBehaviour:
     https://www.freepik.com/free-vector/complete-set-level-square-button-game-pop-up-icon-window-elements_13744745.htm
 
     <color="red>*
+    Skybox: </color>Farland Skies - Cloudy Crown
+
+    https://assetstore.unity.com/packages/2d/textures-materials/sky/farland-skies-cloudy-crown-60004
+
+    <color="red>*
     Text font:</color> "Cartoon Font" by MacArtist
 
     https://www.fontspace.com/cartoon-font-f6674
@@ -1968,12 +2009,7 @@ MonoBehaviour:
     <color="red>*
     Block font: </color>"Cartoon Comic Font" by Joseph Dawson
 
-    https://www.fontspace.com/cartoon-comic-font-f41951
-
-    <color="red>*
-    Skybox: </color>Farland Skies - Cloudy Crown
-
-    https://assetstore.unity.com/packages/2d/textures-materials/sky/farland-skies-cloudy-crown-60004'
+    https://www.fontspace.com/cartoon-comic-font-f41951'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d1e2d0abf9e14b74984d5ec3b159fed6, type: 2}
   m_sharedMaterial: {fileID: 7188553003891636111, guid: d1e2d0abf9e14b74984d5ec3b159fed6, type: 2}
@@ -2446,6 +2482,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &979801191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,6 +2619,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1788797000}
         m_TargetAssemblyTypeName: JengaGame.UI.CreditsPanel, Assembly-CSharp
         m_MethodName: ToggleCreditsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3402,6 +3462,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1527998371}
+        m_TargetAssemblyTypeName: JengaGame.UI.UIController, Assembly-CSharp
+        m_MethodName: HideInformationPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1653859984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,8 +3658,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1271688877}
   - {fileID: 1525972330}
+  - {fileID: 1271688877}
   m_Father: {fileID: 1527998370}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
