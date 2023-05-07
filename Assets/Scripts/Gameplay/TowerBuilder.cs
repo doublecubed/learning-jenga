@@ -81,8 +81,6 @@ namespace JengaGame.Gameplay
 
 		public void DestroyTower()
 		{
-			Debug.Log(_allBlocks);
-			
 			if (_allBlocks == null || _allBlocks.Count == 0) return;
 			
 			foreach (Block block in _allBlocks)
