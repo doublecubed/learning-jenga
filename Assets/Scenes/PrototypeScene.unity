@@ -5155,7 +5155,11 @@ MonoBehaviour:
   - {fileID: 704421893}
   - {fileID: 2037226966}
   - {fileID: 1368740758}
-  VerticalMoveSpeed: 10
+  VerticalMoveSpeed: 25
   HorizontalRotateSpeed: 3
   ZoomSpeed: 20
   FocusSwitchDuration: 0.2
+  CameraMaxHeight: 7
+  CameraMinHeight: 1
+  CameraMaxDistance: 20
+  CameraMinDistance: 4
