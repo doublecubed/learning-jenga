@@ -1,6 +1,11 @@
+// ------------------------
+// Onur Ereren - May 2023
+// ------------------------
+
+// BlockData structure that matches the json file structure.
+
 namespace JengaGame.Data
 {
-
     public struct BlockData
     {
         public int Id;

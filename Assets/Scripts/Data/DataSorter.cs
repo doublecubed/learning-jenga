@@ -1,22 +1,23 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
+
+// DataSorter pulls json data from the URL specified using Newtonsoft json package.
+// It creates a JsonImporter instance and tasks it with importing json data.
+// The data is then parsed into Lists for appropriate grade levels,
+// and the go ahead is given to generate the towers by enabling the Generate button in the UI.
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JengaGame.Gameplay;
 using JengaGame.UI;
 using UnityEngine;
 using Newtonsoft.Json;
 
 namespace JengaGame.Data
 {
-
 	public class DataSorter : MonoBehaviour
 	{
 		#region REFERENCES
-
-		private TowerCoordinator _coordinator;
 		
 		private string _url = "https://ga1vqcu3o1.execute-api.us-east-1.amazonaws.com/Assessment/stack";
 		
@@ -39,7 +40,6 @@ namespace JengaGame.Data
 
 		private async void Start()
 		{
-			_coordinator = GetComponent<TowerCoordinator>();
 			_importer = new JsonImporter();
 			await StartImport();
 			SortIntoBlockData();

@@ -1,6 +1,8 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
+
+// JsonImporter imports the json file at a given URL and returns the result.
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,6 +13,8 @@ namespace JengaGame.Data
 
     public class JsonImporter
     {
+        #region METHODS
+        
         public async Task<string> ImportJsonAsync(string url)
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -47,5 +51,7 @@ namespace JengaGame.Data
                 return null;
             }
         }
+        
+        #endregion
     }
 }

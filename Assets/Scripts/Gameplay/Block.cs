@@ -1,8 +1,9 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
+// Block component used on block prefabs.
+
 using UnityEngine;
 using JengaGame.Data;
 using TMPro;

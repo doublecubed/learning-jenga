@@ -1,17 +1,16 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+// ClickResolver resolves clicks on the screen, and brings up the
+// information panel with appropriate block data.
+
 using UnityEngine;
 using JengaGame.Gameplay;
 using JengaGame.Data;
 
 namespace JengaGame.UI
 {
-
 	public class ClickResolver : MonoBehaviour
 	{
 		#region REFERENCES

@@ -1,10 +1,14 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
+// UIController coordinates the UI actions.
+// Its public methods activate or deactivate buttons
+// together based on the action the application needs.
+// It utilizes the Singleton pattern for access from
+// anywhere within the application.
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using JengaGame.Data;
 using TMPro;
@@ -15,10 +19,10 @@ namespace JengaGame.UI
 	{
 		#region REFERENCES
 
+		// Singleton Instance
 		public static UIController Instance;
 		
 		private ButtonController _buttonController;
-		
 		
 		public Transform InformationPanel;
 
@@ -46,6 +50,7 @@ namespace JengaGame.UI
 
 		private void Awake()
 		{
+			#region Singleton Logic
 			if (Instance != null && Instance != this)
 			{
 				Destroy(this.gameObject);
@@ -54,6 +59,7 @@ namespace JengaGame.UI
 			{
 				Instance = this;
 			}
+			#endregion
 			
 			_buttonController = GetComponent<ButtonController>();
 		}
@@ -97,11 +103,15 @@ namespace JengaGame.UI
 		
 		private void ShowInformationPanel()
 		{
+			if (_informationPanelScaling) return;
+			
 			StartCoroutine(ScaleInformationPanel(1f));
 		}
 
 		public void HideInformationPanel()
 		{
+			if (_informationPanelScaling) return;
+			
 			StartCoroutine(ScaleInformationPanel(0f));
 		}
 

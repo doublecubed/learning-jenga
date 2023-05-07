@@ -1,8 +1,10 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
+// TowerCoordinator conveys the commands to build and release of towers
+// to individual tower builders.
+
 using System.Collections.Generic;
 using JengaGame.Data;
 using JengaGame.UI;
@@ -25,14 +27,11 @@ namespace JengaGame.Gameplay
 		
 		public GameObject BlockPrefab;
 
+		// Materials array. Material indexes are for mastery levels of 0,1,and 2 respectively.
 		public Material[] MasteryMaterials;
 
 		public float BlockSpacing;
 		public float BlockHeight;
-
-		#endregion
-
-		#region VARIABLES
 
 		#endregion
 
@@ -69,15 +68,9 @@ namespace JengaGame.Gameplay
 
 		private void DestroyPreviousTowers()
 		{
-			Block[] presentBlocks = FindObjectsOfType<Block>();
-
-			if (presentBlocks.Length != 0)
-			{
-				foreach (Block block in presentBlocks)
-				{
-					Destroy(block.gameObject);
-				}
-			}
+			SixthGradeTower.DestroyTower();
+			SeventhGradeTower.DestroyTower();
+			EighthGradeTower.DestroyTower();
 		}
 		
 		private void InitializeBuild(List<BlockData> sixth, List<BlockData> seventh, List<BlockData> eighth)

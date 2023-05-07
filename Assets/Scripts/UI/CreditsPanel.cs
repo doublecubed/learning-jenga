@@ -1,14 +1,15 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
+// CreditsPanel is a separate script because the credits panel
+// operates independently from the rest of the application.
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace JengaGame.UI
 {
-
 	public class CreditsPanel : MonoBehaviour
 	{
 		#region REFERENCES
@@ -23,10 +24,6 @@ namespace JengaGame.UI
 		private bool _panelVisible;
 		private bool _panelScaling;
 		
-		#endregion
-
-		#region MONOBEHAVIOUR
-
 		#endregion
 
 		#region METHODS
@@ -47,6 +44,10 @@ namespace JengaGame.UI
 			}
 		}
 
+		#endregion
+		
+		#region COROUTINES
+		
 		private IEnumerator ScalePanel(float targetScale)
 		{
 			_panelScaling = true;

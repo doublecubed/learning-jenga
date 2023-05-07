@@ -1,6 +1,13 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
+
+// ButtonController controls the activation & deactivation of UI buttons.
+// Specifically, it makse sure that button text also fades out when
+// buttons are made inactive.
+// It uses a Discitonary to match string keys to ButtonComposite struct,
+// which holds the Button component and TextMeshPro components of the button.
+
 
 using System.Collections.Generic;
 using TMPro;
@@ -9,8 +16,7 @@ using UnityEngine.UI;
 
 namespace JengaGame.UI
 {
-
-
+	
 	public class ButtonController : MonoBehaviour
 	{
 		#region REFERENCES
@@ -19,9 +25,13 @@ namespace JengaGame.UI
 		public Button SeventhGradeButton;
 		public Button EighthGradeButton;
 
-		[Space(5)] public Button TestStackButton;
+		[Space(5)] 
 
-		[Space(5)] public Button GenerateTowerButton;
+		public Button TestStackButton;
+
+		[Space(5)] 
+		
+		public Button GenerateTowerButton;
 
 		#endregion
 
@@ -35,6 +45,15 @@ namespace JengaGame.UI
 
 		private void Awake()
 		{
+			GenerateButtonDictionary();
+		}
+
+		#endregion
+
+		#region METHODS
+
+		private void GenerateButtonDictionary()
+		{
 			_buttons = new Dictionary<string, ButtonComposite>();
 			_buttons.Add("sixthGrade", GenerateButtonComposite(SixthGradeButton));
 			_buttons.Add("seventhGrade", GenerateButtonComposite(SeventhGradeButton));
@@ -42,11 +61,7 @@ namespace JengaGame.UI
 			_buttons.Add("generateTower", GenerateButtonComposite(GenerateTowerButton));
 			_buttons.Add("testStack", GenerateButtonComposite(TestStackButton));
 		}
-
-		#endregion
-
-		#region METHODS
-
+		
 		public void ActivateButton(string buttonName)
 		{
 			if (_buttons.ContainsKey(buttonName))
@@ -71,8 +86,9 @@ namespace JengaGame.UI
 			}
 		}
 
-		#endregion
 
+
+		// Generates a ButtonComposite for a given button by finding its child TextMeshPro components.
 		public ButtonComposite GenerateButtonComposite(Button theButton)
 		{
 			ButtonComposite theComposite = new ButtonComposite();
@@ -81,8 +97,7 @@ namespace JengaGame.UI
 			return theComposite;
 		}
 		
-
-
+		#endregion
 	}
 
 	public struct ButtonComposite

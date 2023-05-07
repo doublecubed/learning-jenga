@@ -1,10 +1,11 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+// Basic AudioSource component controller. As the project has only one sound effect,
+// there is no need for complex sfx selection structure.
+// The play method is called directly by the buttons.
+
 using UnityEngine;
 
 namespace JengaGame.Audio
@@ -17,10 +18,6 @@ namespace JengaGame.Audio
 
 		public AudioClip ButtonClick;
 		
-		#endregion
-
-		#region VARIABLES
-
 		#endregion
 
 		#region MONOBEHAVIOUR

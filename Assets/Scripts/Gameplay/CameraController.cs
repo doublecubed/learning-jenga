@@ -1,77 +1,100 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
+// Camera controller script. Listens to mouse input as well as 6-7-8 on the number line
+// Performs camera movements and also makes switches between tower focus points.
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace JengaGame.Gameplay
 {
 	public class CameraController : MonoBehaviour
 	{
+		#region REFERENCES
+		
 		public Transform cameraTransform;
 		public Transform[] focusPointCenters;
 
-		public float verticalMoveSpeed;
-		public float horizontalRotateSpeed;
-		public float zoomSpeed;
-		public float focusSwitchDuration;
+		#endregion
 		
-		private bool mousePressed;
-		private bool cameraMoving;
+		#region VARIABLES
+		
+		public float VerticalMoveSpeed;
+		public float HorizontalRotateSpeed;
+		public float ZoomSpeed;
+		public float FocusSwitchDuration;
+		
+		private bool _mousePressed;
+		private bool _cameraMoving;
 
+		#endregion
+		
+		#region MONOBEHAVIOUR
+		
 		private void Update()
+		{
+			ResolveMousePresses();
+			ResolveCameraMovement();
+			ResolveGradeButtonPresses();
+		}
+
+		#endregion
+		
+		#region METHODS
+
+		private void ResolveMousePresses()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
-				mousePressed = true;
-				//Cursor.lockState = CursorLockMode.Locked;
+				_mousePressed = true;
 				Cursor.visible = false;
 			}
 
 			if (Input.GetMouseButtonUp(0))
 			{
-				mousePressed = false;
-				Cursor.lockState = CursorLockMode.None;
+				_mousePressed = false;
 				Cursor.visible = true;
 			}
+		}
 
-			if (mousePressed && !cameraMoving)
+		private void ResolveCameraMovement()
+		{
+			if (_mousePressed && !_cameraMoving)
 			{
 				float mouseXDelta = Input.GetAxis("Mouse X");
 				float mouseYDelta = Input.GetAxis("Mouse Y");
 
 				
-				transform.Rotate(0f, mouseXDelta * horizontalRotateSpeed, 0f);
-				cameraTransform.position += Vector3.up * mouseYDelta * verticalMoveSpeed * Time.deltaTime;
-
-
+				transform.Rotate(0f, mouseXDelta * HorizontalRotateSpeed, 0f);
+				cameraTransform.position += Vector3.up * mouseYDelta * VerticalMoveSpeed * Time.deltaTime;
 			}
 			
 			
 			float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-			cameraTransform.position += cameraTransform.forward * mouseScroll * zoomSpeed;
+			cameraTransform.position += cameraTransform.forward * mouseScroll * ZoomSpeed;
+		}
 
-
-			if (Input.GetKeyDown(KeyCode.Alpha6) && !cameraMoving)
+		private void ResolveGradeButtonPresses()
+		{
+			if (Input.GetKeyDown(KeyCode.Alpha6) && !_cameraMoving)
 			{
 				MoveToSixthGrade();
 			}
 			
-			if (Input.GetKeyDown(KeyCode.Alpha7) && !cameraMoving)
+			if (Input.GetKeyDown(KeyCode.Alpha7) && !_cameraMoving)
 			{
 				MoveToSeventhGrade();
 			}
 			
-			if (Input.GetKeyDown(KeyCode.Alpha8) && !cameraMoving)
+			if (Input.GetKeyDown(KeyCode.Alpha8) && !_cameraMoving)
 			{
 				MoveToEighthGrade();
 			}
 		}
-
+		
+		
 		public void MoveToSixthGrade()
 		{
 			StartCoroutine(MoveToFocus(focusPointCenters[0]));
@@ -86,43 +109,32 @@ namespace JengaGame.Gameplay
 		{
 			StartCoroutine(MoveToFocus(focusPointCenters[2]));
 		}
+
+		#endregion
 		
-		private bool IsPointerOverUI()
-		{
-			// Check if the mouse pointer is over any UI element
-			if (EventSystem.current != null)
-			{
-				PointerEventData eventData = new PointerEventData(EventSystem.current);
-				eventData.position = Input.mousePosition;
-
-				List<RaycastResult> results = new List<RaycastResult>();
-				EventSystem.current.RaycastAll(eventData, results);
-
-				return results.Count > 0;
-			}
-
-			return false;
-		}
+		#region COROUTINES
 		
 		private IEnumerator MoveToFocus(Transform focusPoint)
 		{
-			cameraMoving = true;
+			_cameraMoving = true;
 			
 			Vector3 startPos = transform.position;
 			Vector3 endPos = focusPoint.position;
 			
 			float timer = 0f;
-			while (timer < focusSwitchDuration)
+			while (timer < FocusSwitchDuration)
 			{
 				timer += Time.deltaTime;
-				float lerp = Mathf.Clamp(timer / focusSwitchDuration, 0f, 1f);
+				float lerp = Mathf.Clamp(timer / FocusSwitchDuration, 0f, 1f);
 
 				transform.position = Vector3.Lerp(startPos, endPos, lerp);
 				yield return null;
 			}
 
-			cameraMoving = false;
+			_cameraMoving = false;
 		}
+		
+		#endregion
 	}
 
 }

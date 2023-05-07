@@ -1,9 +1,9 @@
 // ------------------------
-// Onur Ereren - April 2023
+// Onur Ereren - May 2023
 // ------------------------
 
-using System;
-using System.Collections;
+// TowerBuilder builds and releases towers for each grade level.
+
 using System.Collections.Generic;
 using UnityEngine;
 using JengaGame.Data;
@@ -28,10 +28,6 @@ namespace JengaGame.Gameplay
 		private float _blockInterval;
 		private float _blockHeight;
 		
-		#endregion
-
-		#region MONOBEHAVIOUR
-
 		#endregion
 
 		#region METHODS
@@ -61,29 +57,40 @@ namespace JengaGame.Gameplay
 			
 			for (int i = 0; i < blocks.Count; i++)
 			{
+				// Instantiate and position the block
 				GameObject block = Instantiate(_blockPrefab, transform);
 				block.transform.position = transform.position + Vector3.up * _blockHeight * BlockLevel(i) +
 				                           (Quaternion.Euler(0f, BlockOrientationAngle(i), 0f) * Vector3.right) * _blockInterval * (BlockLevelPosition(i) - 1);
 				block.transform.rotation = Quaternion.Euler(0f, 90f - BlockOrientationAngle(i), 0f);
 
+				// Set the data of the block. Add the block to the block list.				
 				Block blockScript = block.GetComponent<Block>();
-
 				blockScript.SetData(blocks[i]);
-
-				int mastery = blocks[i].Mastery;
-				
 				_allBlocks.Add(blockScript);
 				
+				// Get the mastery of the block. If it's 0, add it to glass block list.
+				int mastery = blocks[i].Mastery;
 				if (mastery == 0) _glassBlocks.Add(blockScript);
-				
-				blockScript.SetMaterial(Coordinator.MasteryMaterials[mastery]);
 
+				// Set block material and text according to its mastery.
+				blockScript.SetMaterial(Coordinator.MasteryMaterials[mastery]);
 				string labelContent = mastery == 0 ? " " : mastery == 1 ? "LEARNED" : "MASTERED";
-				
 				blockScript.DressLabels(labelContent);
 			}
 		}
 
+		public void DestroyTower()
+		{
+			Debug.Log(_allBlocks);
+			
+			if (_allBlocks == null || _allBlocks.Count == 0) return;
+			
+			foreach (Block block in _allBlocks)
+			{
+				Destroy(block.gameObject);
+			}
+		}
+		
 		private float BlockOrientationAngle(int index)
 		{
 			int orientationIndex = BlockLevel(index) % 2;
