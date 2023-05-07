@@ -9,13 +9,13 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JengaGame.UI;
 using UnityEngine;
 using Newtonsoft.Json;
+using JengaGame.Gameplay;
 
 namespace JengaGame.Data
 {
-	public class DataSorter : MonoBehaviour
+	public class DataSorter : MonoBehaviour, IDataProvider
 	{
 		#region REFERENCES
 		
@@ -27,31 +27,38 @@ namespace JengaGame.Data
 
 		#region VARIABLES
 
-		public List<BlockData> SixthGradeData { get; private set; }
-		public List<BlockData> SeventhGradeData { get; private set; }
-		public List<BlockData> EighthGradeData { get; private set; }
+		private List<BlockData> _sixthGradeData;
+		private List<BlockData> _seventhGradeData;
+		private List<BlockData> _eighthGradeData;
 
 		private string _rawJsonData;
 		private List<BlockData> _unsortedBlockData;
 		
 		#endregion
 
-		#region MONOBEHAVIOUR
+		#region METHODS
 
-		private async void Start()
+		public void RequestData(IDataReceiver receiver)
+		{
+			ImportData(receiver);
+		}
+
+		private async void ImportData(IDataReceiver receiver)
 		{
 			_importer = new JsonImporter();
 			await StartImport();
 			SortIntoBlockData();
 			SortIntoGrades();
-			ActivateGenerateButton();
+
+			List<BlockData>[] blockDataBundle = new List<BlockData>[3];
+			blockDataBundle[0] = _sixthGradeData;
+			blockDataBundle[1] = _seventhGradeData;
+			blockDataBundle[2] = _eighthGradeData;
+			
+			receiver.DataReady(blockDataBundle);
 		}
-
-	
-		#endregion
-
-		#region METHODS
-
+		
+		
 		private async Task StartImport()
 		{
 			_rawJsonData = await _importer.ImportJson(_url);
@@ -66,31 +73,31 @@ namespace JengaGame.Data
 		{
 			Debug.Log("sorting into grades");
 
-			SixthGradeData = new List<BlockData>();
-			SeventhGradeData = new List<BlockData>();
-			EighthGradeData = new List<BlockData>();
+			_sixthGradeData = new List<BlockData>();
+			_seventhGradeData = new List<BlockData>();
+			_eighthGradeData = new List<BlockData>();
 			
 			for (int i = 0; i < _unsortedBlockData.Count; i++)
 			{
 				switch (_unsortedBlockData[i].Grade)
 				{
 					case "6th Grade" :
-						SixthGradeData.Add(_unsortedBlockData[i]);
+						_sixthGradeData.Add(_unsortedBlockData[i]);
 						break;
 					case "7th Grade" :
-						SeventhGradeData.Add(_unsortedBlockData[i]);
+						_seventhGradeData.Add(_unsortedBlockData[i]);
 						break;
 					case "8th Grade" :
-						EighthGradeData.Add(_unsortedBlockData[i]);
+						_eighthGradeData.Add(_unsortedBlockData[i]);
 						break;
 					default :
 						break;
 				}	
 			}
 			
-			Debug.Log("sixth grade has " + SixthGradeData.Count + " elements");
-			Debug.Log("seventh grade has " + SeventhGradeData.Count + " elements");
-			Debug.Log("eighth grade has " + EighthGradeData.Count + " elements");
+			Debug.Log("sixth grade has " + _sixthGradeData.Count + " elements");
+			Debug.Log("seventh grade has " + _seventhGradeData.Count + " elements");
+			Debug.Log("eighth grade has " + _eighthGradeData.Count + " elements");
 		}
 		
 		private List<BlockData> ParseJsonToBlockDataList(string json)
@@ -99,10 +106,6 @@ namespace JengaGame.Data
 	    return blockDataList;
     }
 
-		private void ActivateGenerateButton()
-		{
-			UIController.Instance.ActivateGenerateButton();
-		}
 		
     #endregion
 

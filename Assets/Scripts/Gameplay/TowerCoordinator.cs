@@ -8,16 +8,17 @@
 using System.Collections.Generic;
 using JengaGame.Data;
 using JengaGame.UI;
+using JengaGame.DI;
 using UnityEngine;
 
 namespace JengaGame.Gameplay
 {
 
-	public class TowerCoordinator : MonoBehaviour
+	public class TowerCoordinator : MonoBehaviour, IDataReceiver
 	{
 		#region REFERENCES
 
-		private DataSorter _dataSorter;
+		private IDataProvider _dataSorter;
 		
 		public TowerBuilder SixthGradeTower;
 		public TowerBuilder SeventhGradeTower;
@@ -35,25 +36,50 @@ namespace JengaGame.Gameplay
 
 		#endregion
 
+		#region VARIABLES
+
+		private List<BlockData> _sixthGradeBlockData;
+		private List<BlockData> _seventhGradeBlockData;
+		private List<BlockData> _eighthGradeBlockData;
+		
+		
+		#endregion
+		
 		#region MONOBEHAVIOUR
 
 		private void Awake()
 		{
-			_dataSorter = GetComponent<DataSorter>();
+			var injectionContainer = FindObjectOfType<DIContainer>();
+			_dataSorter = injectionContainer.Resolve<IDataProvider>();
 			
 			SixthGradeTower.Coordinator = this;
 			SeventhGradeTower.Coordinator = this;
 			EighthGradeTower.Coordinator = this;
 		}
 
+		private void Start()
+		{
+			_dataSorter.RequestData(this);
+		}
+		
 		#endregion
 
 		#region METHODS
 
+		public void DataReady(List<BlockData>[] towerBlockData)
+		{
+			_sixthGradeBlockData = towerBlockData[0];
+			_seventhGradeBlockData = towerBlockData[1];
+			_eighthGradeBlockData = towerBlockData[2];
+			
+			UIController.Instance.ActivateGenerateButton();
+			
+		}
+		
 		public void BuildTowers()
 		{
 			DestroyPreviousTowers();
-			InitializeBuild(_dataSorter.SixthGradeData, _dataSorter.SeventhGradeData, _dataSorter.EighthGradeData);
+			InitializeBuild(_sixthGradeBlockData, _seventhGradeBlockData, _eighthGradeBlockData);
 		}
 
 		public void ReleaseTowers()
